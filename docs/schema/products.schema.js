@@ -99,7 +99,7 @@ const Products = () => (
           }}
         />
         <relation
-          keyName="cateogies"
+          keyName="categories"
           ui="multipleSelect"
           relation={{
             type: "toMany",

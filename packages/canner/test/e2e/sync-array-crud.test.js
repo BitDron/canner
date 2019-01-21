@@ -82,12 +82,17 @@ describe('on page load', () => {
 
   test('should delete item', async () => {
     await goToProductList(page);
-    const originTrLength = await page.$$eval('div[data-testid="products"] table tr', trs => trs.length);
+    const products = await page.evaluate(() => {
+      return JSON.parse(localStorage.getItem('cannerDEMO')).products;
+    });
     await deleteProduct(page);
-    const hasDeleted = await page.waitFor(trLength => {
-      return document.querySelectorAll('div[data-testid="products"] table tr').length < trLength;
-    }, {}, originTrLength);
-    expect(hasDeleted).toBeTruthy();
+    await page.waitFor(length => {
+      return JSON.parse(localStorage.getItem('cannerDEMO')).products.length < length;
+    }, {timeout: 5000}, products.length);
+    const newProductsLength = await page.evaluate(() => {
+      return JSON.parse(localStorage.getItem('cannerDEMO')).products.length;
+    });
+    expect(newProductsLength).toBe(products.length - 1);
   });
 
   test('should create item', async () => {

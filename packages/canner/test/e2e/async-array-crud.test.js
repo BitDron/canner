@@ -82,7 +82,6 @@ describe('async array crud', () => {
     const customers = await page.evaluate(() => {
       return JSON.parse(localStorage.getItem('cannerDEMO')).customers;
     });
-    // delete item
     await deleteProduct(page);
     // check customers size
     await page.waitFor(length => {

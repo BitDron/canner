@@ -53,7 +53,7 @@ const schema = (
   </root>
 );
 
-const fD = createFakeData(schema.schema, 10);
+const fD = createFakeData(schema.schema, 11);
 const connector = new LocalStorageConnector({
   defaultData: {...fD, ...fakeData},
   localStorageKey: 'cannerDEMO'

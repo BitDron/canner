@@ -1,5 +1,5 @@
 const puppeteer = require('puppeteer')
-const {testIdSelector} = require('./utils');
+const {testIdSelector, clickAndWait} = require('./utils');
 
 let browser;
 let page;
@@ -15,7 +15,8 @@ describe('on page load', () => {
     await page.goto('http://localhost:8080/demo/customers');
     await page.waitForSelector(testIdSelector('customers'));
     // reset localStorage
-    await page.setViewport({
+     await page.evaluate(() => { localStorage.clear(); });
+     await page.setViewport({
       width: 900,
       height: 800
     })
@@ -153,11 +154,3 @@ async function getCustomerFromIndex(page, index) {
   }, index);
 }
 
-async function clickAndWait(page, buttonId, selector) {
-  await page.waitFor(500)
-  return await Promise.all([
-    page.waitForNavigation(),
-    page.waitForSelector(selector),
-    page.click(buttonId),
-  ]);
-}
