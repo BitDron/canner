@@ -18,7 +18,7 @@
     "release": "lerna publish --exact",
     "release:next": "lerna publish --exact --npm-tag next",
     "check:src": "npm run lint",
-    "start": "NODE_ENV=development webpack-dev-server",
+    "start": "node_modules/.bin/webpack-dev-server",
     "build:docs": "rm -rf docs/dist && NODE_ENV=production webpack",
     "gh-pages": "gh-pages -d docs/dist",
     "deploy": "npm run build:docs && npm run gh-pages",
